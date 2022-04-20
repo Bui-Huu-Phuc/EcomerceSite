@@ -39,9 +39,9 @@ class CartView(LoginRequiredMixin, View):
         else:
             return render(self.request, 'items/cart.html', )
 
-def slider_view(request):
-    item = get_object_or_404(Item)
-    photos = ItemImage.objects.filter(item= item)
+def slider_view(request, id):
+    item = get_object_or_404(Item, id=id)
+    photos = ItemImage.objects.filter(item=item)
     return render(request, 'templates/slider.html', {
         'item': item,
         'photos': photos
