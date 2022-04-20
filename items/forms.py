@@ -4,9 +4,9 @@ from django.forms import widgets
 from items.models import Item
 
 colors = (
-    ('BLACK', 'BLACK'),
-    ('GREY', 'GREY'),
-    ('BLUE', 'BLUE'),
+    ('Đen', 'Đen'),
+    ('Xám', 'Xám'),
+    ('Xanh', 'Xanh'),
 )
 PAYMENT_CHOICES = (
     ('IB', 'Internet Banking'),

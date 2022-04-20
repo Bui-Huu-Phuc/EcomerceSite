@@ -142,11 +142,12 @@ def cancel_order(request, pk):
 def ItemDetailView(request, slug):
     if request.method == "GET":
         item = Item.objects.filter(slug=slug)[0]
-
+        photos = ItemImage.objects.filter(item=item)
         form = OrderItemForm()
         context = {
             "item": item,
             "form": form,
+            "photos" : photos
         }
         return render(request, "items/item_details.html", context=context)
 

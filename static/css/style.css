@@ -2,10 +2,10 @@
     cursor: pointer;
 }      
 .custom-radio-button input[type="radio"]:checked+label {
-    background-color: black;
+    background-color: red;
     color: white;
 }
 .custom-radio-button input[type="radio"]:hover+label {
-    background-color: black;
+    background-color: red;
     color: white;
 }

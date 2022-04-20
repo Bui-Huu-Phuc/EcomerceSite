@@ -1,16 +1,25 @@
 {% block body_content %}
-<form method="POST" id="order_item_form" class = 'custom-radio-button flex flex-row items-center font-semibold m-2'>
-    <span>Màu: </span>
-    {% csrf_token %}
+
+   <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 ">
+          <div class="flex">
+            <span class="mr-3 text-2xl font-bold">Color</span>
+              <form method="POST" id="order_item_form" class = ' flex flex-row items-center font-semibold m-2'>
+        {% csrf_token %}
         {% for value, name in form.fields.item_color.choices %}
-          <input type="radio" name='size' id='{{name}}' value='{{value}}' class="hidden">
-          <label id='{{value}}' for="{{name}}" class="w-full text-center font-semibold m-2 p-2 border rounded-xl">{{name}}</label>
+          <input type="radio" name='size' id='{{name}}' value='{{value}}' class=" ">
+          <label id='{{value}}'  class="   w-full text-center font-semibold  p-2 border rounded-xl">{{name}}</label>
         {% endfor %}
         {{form.quantity}}
     </form>
-    <div class="flex justify-end">
-      <a onclick="myFunction()" class="border-2 cursor-pointer hover:bg-black hover:text-white text-black bg-transparent font-semibold p-4 rounded-xl ">THÊM VÀO GIỎ HÀNG</a>
-    </div>
+
+          </div>
+          <div class="flex ml-6 items-center">
+            <div class="relative">
+            </div>
+          </div>
+        </div>
+          <button onclick="myFunction()" class="active:bg-violet-700 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Thêm vào giỏ hàng</button>
+
 
 {% endblock body_content %}
 {% block script %}

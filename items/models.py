@@ -28,7 +28,7 @@ class Item(models.Model):
     price = models.PositiveIntegerField(default=0)
     discount_price = models.IntegerField(blank=True, null=True)
     categories = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    image = models.ImageField(null=True)
+    image = models.ImageField(upload_to='media/item-images', null=True, blank=True)
     ram = models.TextField(blank=True)
     chip = models.TextField(blank=True)
     vga = models.TextField(blank=True)
@@ -61,7 +61,7 @@ class Item(models.Model):
 
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='static/media/item-images')
+    image = models.ImageField(upload_to='media/item-images')
 
     def __str__(self):
         return self.item.name
@@ -113,7 +113,3 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return f"Order No.{self.pk}--Username:{self.user.username}"
-
-# class Images(models.Model):
-#     item = models.ForeignKey(Item, default=None)
-#     image = models.ImageField(upload_to='static/media/item-images', blank=True, null=True)

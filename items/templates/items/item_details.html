@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block messages %}
     {% if messages %}
         {% for msg in messages %}
@@ -22,11 +23,10 @@
     <div class="flex flex-col md:flex-row w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
 
         {% if item.image %}
-            <img src="/{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+            <img src="{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
         {% else %}
             <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
         {% endif %}
-
         <div class="md:w-1/2 md:p-8" >
             <p class="text-5xl text-gray-600 m-2 border-b-2">{{item.name}}</p>
             {% if item.discount_price %}
@@ -41,9 +41,158 @@
             {% include "items/item_size.html" %}
 
             <p class="text-2xl font-semibold m-2">Chi  tiết</p>
-            <p class="text-xl text-justify m-2">CPU : {{ item.chip }}<br>Ram: {{ item.ram }}GB<br>VGA: {{ item.vga }}<br>Lưu trữ: {{ item.memory }}GB<br>Màn hình: {{ item.display }}<br>Pin: {{ item.pin }}<br>Trọng lượng: {{ item.weight }}kg<br>Hệ điều hành: {{ item.hdh }}</p>
-
+            <p class="text-xl text-justify m-2">
+                <b>CPU</b> : {{ item.chip }}<br>
+                <b>Ram</b> : {{ item.ram }}GB<br>
+                <b>VGA</b> : {{ item.vga }}<br>
+                <b>Lưu trữ</b> : {{ item.memory }}GB<br>
+                <b>Màn hình</b> : {{ item.display }}<br>
+                <b>Pin</b> : {{ item.pin }}<br>
+                <b>Trọng lượng</b> : {{ item.weight }}kg<br>
+                <b>Hệ điều hành</b> : {{ item.hdh }}</p>
         </div>
     </div>
+
  </div>
+<div class="flex justify-center items-center ">
+<div class=" p-3 w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
+        {{item.description}}
+</div>
+    </div>
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+       {% if item.image %}
+
+            <img src="{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+
+        {% else %}
+            <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+        {% endif %}
+
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
+        <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{item.name}}</h1>
+        <div class="flex mb-4">
+          <span class="flex items-center">
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <span class="text-gray-600 ml-3">4 Reviews</span>
+          </span>
+          <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+              </svg>
+            </a>
+          </span>
+        </div>
+
+        <div class="flex">
+            <p class="text-3xs">Giá:</p>
+          <span class="title-font font-medium text-2xl text-gray-900 ml-4">
+              {% if item.discount_price %}
+                <label class="text-4xl m-2">{{item.item_formated_discount_price}}</label>
+                <del class="text-2xl text-red-600 m-2" >{{item.item_formated_price}}</del>
+            {% else %}
+                <label class="text-4xl m-2">{{item.item_formated_price}}</label>
+            {% endif %}</span>
+
+        </div>
+          <div class="text-xl">
+               {% include "items/item_size.html" %}
+          </div>
+
+          <div class="mt-9">
+                         <p class="leading-relaxed">{{item.description}}</p>
+          </div>
+
+      </div>
+
+    </div>
+
+  </div>
+<section class="text-gray-600 body-font">
+  <div class="container mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Cấu hình chi tiết</h1>
+    </div>
+    <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+      <table class="table-auto w-full text-left ">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="px-4 py-3 text-lg font-bold  ">CPU</td>
+            <td class="px-4 py-3 ">{{ item.chip }}</td>
+          </tr>
+          <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">RAM</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.ram }}</td>
+          </tr>
+        <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Lưu trữ</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.memory }}GB</td>
+          </tr>
+        <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">VGA</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.vga }}</td>
+          </tr>
+        <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Màn hình</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.display }}</td>
+          </tr>
+        <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Cổng giao tiếp</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3"></td>
+          </tr>
+
+          <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Webcam</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3"></td>
+          </tr>
+          <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Hệ điều hành</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.hdh }}</td>
+          </tr>
+          <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Pin</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.pin }}</td>
+          </tr>
+         <tr>
+            <td class="border-t-2 border-blue-200 px-4 py-3 text-lg font-bold">Trọng lượng</td>
+            <td class="border-t-2 border-blue-200 px-4 py-3">{{ item.weight }}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</section>
+
 {% endblock body_content %}

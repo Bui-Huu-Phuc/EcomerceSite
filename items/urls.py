@@ -1,4 +1,7 @@
+from django.conf.urls.static import static
 from django.urls import path
+
+from Ecommerce import settings
 from .views import *
 
 app_name = 'items'
@@ -20,4 +23,4 @@ urlpatterns = [
     path('remove-single-from-cart/<slug>/<size>/', remove_single_item_from_cart, name='remove-single-from-cart'),
     path('increase-quantity/<slug>/<size>/', increase_quantity, name='increase-quantity'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

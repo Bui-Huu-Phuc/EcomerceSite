@@ -16,7 +16,7 @@
             {% for order_item in order.items.all %}
             <tr>
                 <td class="text-center pb-4">{{ forloop.counter }}</td>
-                <td class="text-center pb-4"><img {% if order_item.item.image %} src="{{order_item.item.image.url}}" {% endif %} class="w-16 h-16" alt=""></td>
+                <td class="text-center pb-4">{% if order_item.item.image %}<img  src="{{order_item.item.image.url}}"  class="w-16 h-16" alt="">{% endif %}</td>
                 <td class="text-center pb-4"><a class = "hover:underline" href="{% url 'items:details' order_item.item.slug %}">{{order_item.item.name}}({{order_item.size}}) </a>  </td>
                 <td class="text-center pb-4">{{order_item.item.get_final_item_formated_price}}</td>
                 <td class="text-center pb-4">{{order_item.quantity}}</td>
