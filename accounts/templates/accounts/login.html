@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% load socialaccount %}
+{% block body_content %}
+<div class="flex justify-center items-center md:mt-32">
+    
+    <div class="flex flex-col justify-center md:flex-row w-full md:w-4/5 xl:w-2/5 2xl:w-2/5 border bg-white rounded-xl">
+
+        <form action="" method="post" class="p-16 h-screen md:w-4/5 xl:w-auto md:h-auto xl:h-auto 2xl:h-auto">
+            {% csrf_token %}
+            <h1 class="text-5xl text-center font-semibold mb-8" >Đăng Nhập</h1>
+
+            {{form | crispy}}
+            <input type="submit" class="border-2 w-full bg-transparent hover:text-white hover:bg-black text-black p-4 font-semibold rounded-full" value="Đăng Nhập">
+            <div class="m-4" >
+                <small class="">Không có tài khoản? <a href="{% url 'accounts:signup' %}" class="text-blue-500 hover:underline">Đăng ký</a></small>
+            </div>
+            <a href="{% provider_login_url 'google' %}">
+                <input type="button" class="border-2 w-full bg-transparent hover:text-white hover:bg-yellow-600 text-black p-4 font-semibold rounded-full" value="Đăng nhập bằng Google">
+            </a>
+            <div class="m-4" >
+                <small class=""><a href="{% url 'password_reset' %}" class="text-blue-500 hover:underline">Quên mật khẩu?</a></small>
+            </div>
+        </form>
+        
+    </div>
+
+ </div>
+{% endblock body_content %}`

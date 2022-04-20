@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block body_content %}
+<div class="flex justify-center items-center md:mt-16">
+    <div class="flex flex-col justify-center md:flex-col w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
+        <h1 class="text-center font-semibol text-3xl p-4">Chi tiết đơn hàng</h1>
+        
+        <table>
+            <tr>
+                <th class="text-center text-black p-8">#</th>
+                <th class="text-center text-black p-8">Ảnh</th>
+                <th class="text-center text-black p-8">Tên</th>
+                <th class="text-center text-black p-8">Giá</th>
+                <th class="text-center text-black p-8">Số lượng</th>
+                <th class="text-center text-black p-8">Tổng</th>
+            </tr>
+            {% for order_item in order.items.all %}
+            <tr>
+                <td class="text-center pb-4">{{ forloop.counter }}</td>
+                <td class="text-center pb-4"><img {% if order_item.item.image %} src="{{order_item.item.image.url}}" {% endif %} class="w-16 h-16" alt=""></td>
+                <td class="text-center pb-4"><a class = "hover:underline" href="{% url 'items:details' order_item.item.slug %}">{{order_item.item.name}}({{order_item.size}}) </a>  </td>
+                <td class="text-center pb-4">{{order_item.item.get_final_item_formated_price}}</td>
+                <td class="text-center pb-4">{{order_item.quantity}}</td>
+                <td class="text-center pb-4">{{order_item.get_item_total_formated}}</td>
+            </tr>
+              
+            {% endfor %}
+            <tr  class="p-4">
+                <td colspan="4"></td>
+                <td class="text-center text-2xl">Tổng: </td>
+                <td class="text-center text-2xl">{{order.get_order_total}}</td>
+            </tr>
+            <tr  class="p-8">
+                <td colspan="2"></td>
+                <td colspan="2"></td>
+                <td class="text-center text-2xl">PTTT: </td>
+                <td class="text-center text-2xl">{{order.payment_method}}</td>
+            </tr>
+        </table>
+        <div class="flex {% if user.is_superuser %}justify-between{% else %} justify-end {% endif %} items-center p-8">
+            {% if user.is_superuser %}
+            <a href="{% url 'items:order-process-done' order.pk %}" class="border-2 hover:bg-black hover:text-white text-black bg-transparent font-semibold p-4 rounded-xl">Hoàn tất đơn hàng</a>
+            <a href="{% url 'items:cancel-order' order.pk %}" class="border-2 hover:bg-black hover:text-white text-black bg-transparent font-semibold p-4 rounded-xl">Hủy đơn hàng</a>
+            {% endif %}
+            <div>
+                <p>Họ tên: {{order.shipping_address.full_name}}</p>
+                <p>Số điện thoại: {{order.shipping_address.phone}}</p>
+                <p>Địa chỉ: {{order.shipping_address.home}}{% if order.shipping_address.ward is not None %}
+                {{order.shipping_address.ward}}, {% endif %} 
+                {{order.shipping_address.district}}, 
+                {{order.shipping_address.city}}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock body_content %}

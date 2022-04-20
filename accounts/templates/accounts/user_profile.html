@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block messages %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div role="alert" class="w-full flex justify-center font-semibold m-4">
+        <span class="w-2/3 text-center
+        {% if msg.tags == 'error' %} 
+            bg-white text-red-600 border-2 border-red-400
+        {% else %} 
+            text-green-500 border-2 border-green-500
+        {% endif %} 
+        rounded p-4">{{msg}}</span>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock messages %}
+
+{% block body_content %}
+<div class="h-screen w-full flex justify-center md:mt-16">
+    <div class="w-full md:w-4/5 xl:w-2/5 2xl:w-2/5 flex flex-col bg-white h-full p-4 rounded-xl">
+        <div class="flex justify-between items-center">
+            <span class="text-3xl font-semibold">Thông tin cá nhân</span>
+            <a href="{% url 'accounts:pwd-change' %}" class="border-b-2 border-white hover:border-gray-500">Thay đổi mật khẩu</a>
+        </div>
+        <div class = "flex justify-between border-b-2 border-black m-4 p-2">
+            <div>
+                <span class="font-bold">Họ và tên:</span> 
+                <span class="font-semibold">{{user.first_name}} {{user.last_name}}</span> 
+            </div>
+            <a href="{% url 'accounts:update' %}" class="border-b-2 border-white hover:border-gray-500">Thay đổi</a>
+        </div>
+        <div class = "border-b-2 border-black font-bold m-4 p-2">
+            <div>
+                <span class="font-bold">Email:</span> 
+                <span class="font-semibold"> {{user.email}}</span> 
+            </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <span class="text-3xl font-semibold">Danh sách địa chỉ</span>
+            <a href="{% url 'accounts:new-address' %}" class="border-b-2 border-white hover:border-gray-500">Thêm địa chỉ</a>
+        </div>
+            {% for address in address_list %}
+            <div class = "flex justify-between border-b-2 border-black m-4 p-2">
+                <div class="w-3/5">
+
+                    <p class=""><span class="font-bold">Họ và tên:</span> {{address.full_name}}</p> 
+                    <p class=""><span class="font-bold">Số điện thoại:</span> {{address.phone}}</p> 
+                    <p class=""><span class="font-bold">Địa chỉ:</span> {{address.home}} {{address.ward}}, {{address.district}}, {{address.city}}</p> 
+                </div>
+                <div class="space-x-4">
+                <a href="{% url 'accounts:update-address' address.pk %}" class="border-b-2 border-white hover:border-gray-500">Thay đổi</a>
+                <a href="{% url 'accounts:remove-address' address.pk %}" class="border-b-2 border-white hover:border-gray-500">Xóa</a>
+    
+                </div>
+            </div>
+            {% endfor %}
+        
+    </div>
+ </div>
+{% endblock body_content %}

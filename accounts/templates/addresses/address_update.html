@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block body_content %}
+<div class="h-screen w-full flex justify-center md:mt-16">
+    <div class="w-full md:w-4/5 xl:2/5 2xl:w-2/5 flex flex-col bg-white h-3/5 p-4 rounded-xl">
+        <span class="text-3xl font-semibold text-center">Chỉnh sửa</span>
+
+            <form id="addressForm" class="w-full p-4" method="POST" data-districts-url="{% url 'accounts:ajax-load-districts' %}" data-wards-url = "{% url 'accounts:ajax-load-wards' %}" novalidate>
+                {% csrf_token %}       
+                {{form | crispy}}
+                <input type="submit" class="border-2 border-black w-full bg-transparent hover:text-white hover:bg-black text-black p-4 m-4 md:m:0 xl:m-0 font-semibold rounded-full" value="Lưu">
+            </form>
+    </div>
+</div>
+{% endblock body_content %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $('[name="city"]').change(function () {
+    var url = $("#addressForm").attr("data-districts-url");
+    var cityID = $(this).val(); 
+
+    $.ajax({             
+      url: url,
+      data: {
+        'city': cityID
+      },
+      success: function (data) {
+        $("[name='district']").html(data);
+        $("[name='ward']").html("<option value=''>---------</option>");
+      }
+    });
+
+  });
+</script>
+
+<script>
+    //select[name='district']
+  $("[name='district']").change(function () {
+    var url = $("#addressForm").attr("data-wards-url");
+    var district_id = $(this).val();
+
+    $.ajax({
+      url: url,
+      data: {
+        'district': district_id
+      },
+      success: function (data) {
+        $("[name='ward']").html(data);
+      }
+    });
+
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#id_phone").keydown(function(event) {
+        // Allow: backspace, delete, tab, escape, and enter
+        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
+            // Allow: Ctrl+A
+            (event.keyCode == 65 && event.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        } else {
+            // Ensure that it is a number and stop the keypress
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                event.preventDefault();
+            }
+        }
+    });
+});
+</script>
+{% endblock script %}

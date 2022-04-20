@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block messages %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div role="alert" class="w-full flex justify-center font-semibold m-4">
+        <span class="w-2/3 text-center
+        {% if msg.tags == 'error' %}
+            bg-white text-red-600 border-2 border-red-400
+        {% else %}
+            text-green-500 border-2 border-green-500
+        {% endif %}
+        rounded p-4">{{msg}}</span>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock messages %}
+
+{% block body_content %}
+<div class="flex justify-center items-center md:mt-16">
+    <div class="flex flex-col md:flex-row w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
+
+        {% if item.image %}
+            <img src="/{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+        {% else %}
+            <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+        {% endif %}
+
+        <div class="md:w-1/2 md:p-8" >
+            <p class="text-5xl text-gray-600 m-2 border-b-2">{{item.name}}</p>
+            {% if item.discount_price %}
+                <label class="text-4xl m-2">{{item.item_formated_discount_price}}</label>
+                <del class="text-2xl text-red-600 m-2" >{{item.item_formated_price}}</del>
+            {% else %}
+                <label class="text-4xl m-2">{{item.item_formated_price}}</label>
+            {% endif %}
+
+            <p class="text-2xl m-2">Hãng: {{item.categories}}</p>
+
+            {% include "items/item_size.html" %}
+
+            <p class="text-2xl font-semibold m-2">Chi  tiết</p>
+            <p class="text-xl text-justify m-2">CPU : {{ item.chip }}<br>Ram: {{ item.ram }}GB<br>VGA: {{ item.vga }}<br>Lưu trữ: {{ item.memory }}GB<br>Màn hình: {{ item.display }}<br>Pin: {{ item.pin }}<br>Trọng lượng: {{ item.weight }}kg<br>Hệ điều hành: {{ item.hdh }}</p>
+
+        </div>
+    </div>
+ </div>
+{% endblock body_content %}

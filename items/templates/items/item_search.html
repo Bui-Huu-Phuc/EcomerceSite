@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_content %}
+<div class="">
+    <div  id="searchBox" class="flex justify-center items-center mt-16 md:mt-0 md:ml-0 xl:mt-8 xl:ml-0 ">
+     
+        <form action="{% url 'items:search' %}" class ="" method="POST">
+        {% csrf_token %}
+        {% for cate in categories %}
+          <a href="{% url 'items:filter-by-cate' cate.pk %}" class="mx-2 hover:underline">{{cate.name}}</a>
+        {% endfor %}
+
+        </form>
+    </div>
+    <div class="flex justify-center">
+         <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+<div class="mt-4 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 ">
+{% if items %}
+{% for item in items %}
+     {% if item.image %}
+         <a href="{% url 'items:details' item.slug %}" class="">
+         <div class="group relative">
+  <div class="col-span-5 md:col-span-2 xl:col-span-2 2xl:col-span-2 m-2 mt-4 md:mt-8 flex flex-col items-center  max-w-sm mx-auto">
+        <img class="object-contain w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md " src="/{{item.image.url}}" alt="product"/>
+{% endif %}
+        <div class="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
+            <h3 class="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
+                <label class="text-xl text-center text-gray-600 font-semibold  border-b-2">{{item.name}}</label><br>
+
+            </h3>
+
+            <div class="flex items-center justify-between px-3 py-2 bg-gray-200 dark:bg-gray-700">
+                <span class="font-bold text-gray-800 dark:text-gray-200">{% if item.discount_price %}
+                              <label class="text-2xl text-center text-black font-semibold">{{item.item_formated_discount_price}}</label>
+                              <del class="text-lg text-center text-red-500 font-semibold">{{item.item_formated_price}}</del>
+                              {% else %}
+                              <label class="text-xl text-center text-black font-semibold">{{item.item_formated_price}}</label>
+                              {% endif %}</span>
+                <button class="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">Chi tiết</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</a>
+{% endfor %}
+{% endif %}
+</div>
+</div>
+
+</div>
+</div>
+{% endblock body_content %}

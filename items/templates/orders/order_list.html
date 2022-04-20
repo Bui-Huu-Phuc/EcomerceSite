@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body_content %}
+<div class="flex justify-center items-center md:mt-16">
+    <div class="flex flex-col justify-center overflow-x-auto md:flex-col w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
+        <table>
+            <tr>
+                <td colspan="5"></td>
+                <td class="text-center text-black pt-4">
+        Trạng thái: <a class = "hover:underline" href="{% url 'items:order-filter' 1 %}">Đã xong</a> | 
+                    <a class = "hover:underline" href="{% url 'items:order-filter' 0 %}">Đã hủy</a> | 
+                    <a class = "hover:underline" href="{% url 'items:order-filter' %}">Đang xử lý</a> | 
+                    <a class = "hover:underline" href="{% url 'items:orders' %}">Tất cả</a></td>
+
+            </tr>
+            <tr>
+                <th class="text-center text-black p-8">Mã</th>
+                <th class="text-center text-black p-8">Ngày đặt</th>
+                <th class="text-center text-black p-8">Họ tên</th>
+                <th class="text-center text-black p-8">SĐT</th>
+                <th class="text-center text-black p-8">Email</th>
+                <th class="text-center text-black p-8">Trạng thái xử lý</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td class="text-center pb-4"><a class = "hover:underline" href="{% url 'items:order-details' order.pk %}">Đơn hàng số {{order.pk}}</a></td>
+                <td class="text-center pb-4">{{order.order_date | date:"d/m/Y h:i A"}}</td>
+                <td class="text-center pb-4">{{order.shipping_address.full_name}}</td>
+                <td class="text-center pb-4">{{order.shipping_address.phone}}</td>
+                <td class="text-center pb-4">{{order.user.email}}</td>
+                <td class="text-center pb-4">
+                    {% if order.process == True %}
+                      Hoàn thành
+                    {% elif order.process == False %}
+                      Đã Hủy
+                    {% else %}
+                      Đang xử lý
+                    {% endif %}
+                </td>
+            </tr>
+              
+            {% endfor %}
+        </table>
+    </div>
+  </div>
+{% endblock body_content %}

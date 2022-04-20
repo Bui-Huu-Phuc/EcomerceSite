@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block messages %}
+    {% if messages %}
+        {% for msg in messages %}
+        <div role="alert" class="w-full flex justify-center font-semibold m-4">
+        <span class="w-2/3 text-center
+        {% if msg.tags == 'error' %} 
+            bg-white text-red-600 border-2 border-red-400
+        {% else %} 
+            text-green-500 border-2 border-green-500
+        {% endif %} 
+        rounded-full p-4">{{msg}}</span>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock messages %}
+
+{% block body_content %}
+<div class="flex justify-center items-center md:mt-32">
+    <div class="flex justify-between md:flex-row w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
+        <table class="m-4 w-full">
+            <tr class="">
+                <th class="text-center text-black p-4">Tên</th>
+                <th class="text-center text-black p-4">Giá</th>
+            </tr>
+            {% for order_item in order.items.all %}
+            <tr class="border-b-2">
+                <td class="text-center"><img {% if order_item.item.image %} src="{{order_item.item.image.url}}" {% endif %} class="w-16 h-16" alt=""> {{order_item.item.name}}({{order_item.size}})x{{order_item.quantity}}</td>
+                <td class="text-center">{{order_item.get_item_total_formated}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="flex justify-between m-8">
+            <form id="addressForm" class="border w-full p-4" method="POST" data-districts-url="{% url 'accounts:ajax-load-districts' %}" data-wards-url = "{% url 'accounts:ajax-load-wards' %}" novalidate>
+                {% csrf_token %}
+            <h1 class="text-semibold text-3xl text-center p-2"><span class="">Chi tiết đơn hàng</span></h1>
+                <h1><span class="text-semibold text-2xl">Tổng: {{order.get_order_total}}</span>
+               
+            </h1>
+
+                {% if addresses %}
+                  <p class = "m-2">Chọn địa chỉ giao hàng</p>
+                  <div id = "address_list">
+                    {% for address in addresses %}
+                      <div class="border flex justify-start m-2 p-2 rounded">
+                        <input id="user_address_{{address.id}}" name="address" value="{{address.id}}" type="radio" class="m-2">
+                        <label for="user_address_{{address.id}}" class="w-full">
+                          <p>{{address.full_name}} </p>
+                          <p>Phone: {{address.phone}}</p>
+                          <p>{{address.home}}{% if address.ward is not None %}
+                                                    {{address.ward}}, {% endif %} 
+                                                    {{address.district}}, 
+                                                    {{address.city}}</p>
+                        </label>
+                      </div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+                  <div class = "flex justify-start mt-4 w-full">
+                    <h3 class="mr-4">Phương thức thanh toán:</h3>
+                      <div>
+                        {% for value, name in form.fields.payment_option.choices %}
+                        <input id="{{ name }}" {% if forloop.counter == 2 %} checked {% endif %} name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                        {% endfor %}
+                        
+                      </div>
+                  </div>
+                <div class = "py-4">
+                  <small for="{{ name }}">{{form.fields.payment_option.help_text}}</small>
+<br/>
+                  <a href="{% url 'accounts:new-address' %}" class="text-wrap hover:underline">Thêm địa chỉ mới</a>
+                </div>
+                  <input type="submit" value="Đặt hàng" class="border hover:bg-black hover:text-gray-200 bg-white text-black font-semibold rounded-full p-4">
+              </form>
+        </div>
+    
+    </div>
+ </div>
+{% endblock body_content %}
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $('[name="city"]').change(function () {
+    var url = $("#addressForm").attr("data-districts-url");
+    var cityID = $(this).val(); 
+
+    $.ajax({             
+      url: url,
+      data: {
+        'city': cityID
+      },
+      success: function (data) {
+        $("[name='district']").html(data);
+        $("[name='ward']").html("<option value=''>---------</option>");
+      }
+    });
+
+  });
+</script>
+
+<script>
+    //select[name='district']
+  $("[name='district']").change(function () {
+    var url = $("#addressForm").attr("data-wards-url");
+    var district_id = $(this).val();
+
+    $.ajax({
+      url: url,
+      data: {
+        'district': district_id
+      },
+      success: function (data) {
+        $("[name='ward']").html(data);
+      }
+    });
+
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#id_phone").keydown(function(event) {
+        // Allow: backspace, delete, tab, escape, and enter
+        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
+            // Allow: Ctrl+A
+            (event.keyCode == 65 && event.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        } else {
+            // Ensure that it is a number and stop the keypress
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                event.preventDefault();
+            }
+        }
+    });
+});
+</script>
+{% endblock script %}
