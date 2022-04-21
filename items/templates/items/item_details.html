@@ -19,46 +19,7 @@
 {% endblock messages %}
 
 {% block body_content %}
-<div class="flex justify-center items-center md:mt-16">
-    <div class="flex flex-col md:flex-row w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
 
-        {% if item.image %}
-            <img src="{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
-        {% else %}
-            <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
-        {% endif %}
-        <div class="md:w-1/2 md:p-8" >
-            <p class="text-5xl text-gray-600 m-2 border-b-2">{{item.name}}</p>
-            {% if item.discount_price %}
-                <label class="text-4xl m-2">{{item.item_formated_discount_price}}</label>
-                <del class="text-2xl text-red-600 m-2" >{{item.item_formated_price}}</del>
-            {% else %}
-                <label class="text-4xl m-2">{{item.item_formated_price}}</label>
-            {% endif %}
-
-            <p class="text-2xl m-2">Hãng: {{item.categories}}</p>
-
-            {% include "items/item_size.html" %}
-
-            <p class="text-2xl font-semibold m-2">Chi  tiết</p>
-            <p class="text-xl text-justify m-2">
-                <b>CPU</b> : {{ item.chip }}<br>
-                <b>Ram</b> : {{ item.ram }}GB<br>
-                <b>VGA</b> : {{ item.vga }}<br>
-                <b>Lưu trữ</b> : {{ item.memory }}GB<br>
-                <b>Màn hình</b> : {{ item.display }}<br>
-                <b>Pin</b> : {{ item.pin }}<br>
-                <b>Trọng lượng</b> : {{ item.weight }}kg<br>
-                <b>Hệ điều hành</b> : {{ item.hdh }}</p>
-        </div>
-    </div>
-
- </div>
-<div class="flex justify-center items-center ">
-<div class=" p-3 w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
-        {{item.description}}
-</div>
-    </div>
 
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">

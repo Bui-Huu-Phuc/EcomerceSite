@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls.base import reverse
+
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 # from django.http import JsonResponse
-from django.views.generic.base import TemplateView
+
 from .filter import ItemFilter
 
 from .forms import OrderItemForm
@@ -39,6 +39,7 @@ class CartView(LoginRequiredMixin, View):
         else:
             return render(self.request, 'items/cart.html', )
 
+
 def slider_view(request, id):
     item = get_object_or_404(Item, id=id)
     photos = ItemImage.objects.filter(item=item)
@@ -46,7 +47,6 @@ def slider_view(request, id):
         'item': item,
         'photos': photos
     })
-
 
 
 def item_search_view(request):
@@ -147,7 +147,7 @@ def ItemDetailView(request, slug):
         context = {
             "item": item,
             "form": form,
-            "photos" : photos
+            "photos": photos
         }
         return render(request, "items/item_details.html", context=context)
 
