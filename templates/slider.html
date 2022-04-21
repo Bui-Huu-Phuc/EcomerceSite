@@ -1,0 +1,134 @@
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+  <script>
+    var cont=0;
+function loopSlider(){
+  var xx= setInterval(function(){
+        switch(cont)
+        {
+        case 0:{
+            $("#slider-1").fadeOut(400);
+            $("#slider-3").fadeOut(400);
+            $("#slider-2").delay(400).fadeIn(400);
+            $("#sButton1").removeClass("bg-gray-200");
+            $("#sButton2").addClass("bg-gray-200");
+        cont=1;
+
+        break;
+        }
+        case 1:
+        {
+
+            $("#slider-2").fadeOut(400);
+            $("#slider-3").delay(400).fadeIn(600);
+            $("#sButton2").removeClass("bg-gray-200");
+            $("#sButton3").addClass("bg-gray-200");
+
+        cont=2;
+
+        break;
+        }
+         case 2:
+        {
+
+            $("#slider-3").fadeOut(400);
+            $("#slider-1").delay(400).fadeIn(400);
+            $("#sButton3").removeClass("bg-gray-200");
+            $("#sButton1").addClass("bg-gray-200");
+
+        cont=0;
+        break;
+        }
+        }},4000);
+
+}
+
+function reinitLoop(time){
+clearInterval(xx);
+setTimeout(loopSlider(),time);
+}
+
+
+
+function sliderButton1(){
+
+    $("#slider-2").fadeOut(400);
+    $("#slider-1").delay(400).fadeIn(400);
+    $("#sButton2").removeClass("bg-gray-200");
+    $("#sButton3").removeClass("bg-gray-200");
+    $("#sButton1").addClass("bg-gray-200");
+    reinitLoop(4000);
+    cont=0
+
+    }
+
+    function sliderButton2(){
+    $("#slider-1").fadeOut(400);
+    $("#slider-3").fadeOut(400);
+    $("#slider-2").delay(400).fadeIn(400);
+    $("#sButton1").removeClass("bg-gray-200");
+    $("#sButton3").removeClass("bg-gray-200");
+    $("#sButton2").addClass("bg-gray-200");
+    reinitLoop(4000);
+    cont=1
+
+    }
+
+    function sliderButton3(){
+    $("#slider-2").fadeOut(400);
+    $("#slider-1").fadeOut(400);
+    $("#slider-3").delay(400).fadeIn(400);
+    $("#sButton2").removeClass("bg-gray-200");
+    $("#sButton1").removeClass("bg-gray-200");
+    $("#sButton3").addClass("bg-gray-200");
+    reinitLoop(4000);
+    cont=2
+
+    }
+
+    $(window).ready(function(){
+        $("#slider-2").hide();
+        $("#slider-3").hide();
+        $("#sButton1").addClass("bg-gray-200");
+
+        loopSlider();
+
+    })
+
+  </script>
+
+
+<div class="carousel relative container mx-auto mt-5" style="max-width:1600px;">
+    <div class="carousel-inner relative overflow-hidden w-full">
+      <div id="slider-1" class="container mx-auto ">
+        <div class="block h-full w-full bg-center flex bg-cover text-white pt-24 pb-80 px-10 object-fill" style="background-image: url(https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80)"></div>
+      </div>
+
+      <br>
+      <div id="slider-2" class="container mx-auto  ">
+        <div class="bg-cover bg-center h-3/5 text-white pt-24 pb-80 px-10 object-fill" style="background-image: url(https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1422&q=80)"></div>
+      </div>
+  </div>
+    <br>
+       <div id="slider-3" class="container mx-auto  ">
+        <div class="bg-cover bg-center h-3/5 text-white pt-24 pb-80 px-10 object-fill" style="background-image: url(https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1168&q=80)"></div>
+      </div>
+  </div>
+      <br>
+
+ <div  class="flex justify-between w-20 mx-auto space-x-2  pb-2">
+        <button id="sButton1" onclick="sliderButton1()" class="bg-black rounded-full w-4 pb-2 "></button>
+        <button id="sButton2" onclick="sliderButton2() " class="bg-black rounded-full w-4 p-2 "></button>
+        <button id="sButton3" onclick="sliderButton3() " class="bg-black rounded-full w-4 p-2 "></button>
+  </div>
+    <div class="flex justify-center mt-4">
+        <p class="text-xl font-bold">Kéo xuống khám phá</p>
+    </div>
+    <div class="flex justify-center mt-4">
+
+ <div class="h-20 w-20 p-2 animate-bounce rounded-md"><svg width="60px" height="60px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M11.707085,11.7071 L7.999975,15.4142 L4.292875,11.7071 C3.902375,11.3166 3.902375,10.6834 4.292875,10.2929 C4.683375,9.90237 5.316575,9.90237 5.707075,10.2929 L6.999975,11.5858 L6.999975,2 C6.999975,1.44771 7.447695,1 7.999975,1 C8.552255,1 8.999975,1.44771 8.999975,2 L8.999975,11.5858 L10.292865,10.2929 C10.683395,9.90237 11.316555,9.90237 11.707085,10.2929 C12.097605,10.6834 12.097605,11.3166 11.707085,11.7071 Z"/>
+</svg>
+</div>
+</div>
+

@@ -37,6 +37,8 @@ class Item(models.Model):
     weight = models.TextField(blank=True)
     hdh = models.TextField(blank=True)
     display = models.TextField(blank=True)
+    port = models.TextField(blank=True)
+    webcam = models.TextField(blank=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
