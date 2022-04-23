@@ -172,8 +172,8 @@ class CheckoutView(LoginRequiredMixin, View):
                 order.save()
 
                 # Gửi mail thông báo tới user
-                subject = 'UNIQUE Shop đã tiếp nhận đơn hàng'
-                email_msg = f'Xin chào {self.request.user.first_name} {self.request.user.last_name}, UNIQUE Shop đã tiếp nhận đơn hàng của bạn. Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi.'
+                subject = 'Dark Morty Shop đã tiếp nhận đơn hàng'
+                email_msg = f'Xin chào {self.request.user.first_name} {self.request.user.last_name}, Dark Morty Shop đã tiếp nhận đơn hàng của bạn. Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi.'
                 email_from = settings.EMAIL_HOST_USER
                 email_to = [self.request.user.email, ]
                 send_mail(subject, email_msg, email_from, email_to)

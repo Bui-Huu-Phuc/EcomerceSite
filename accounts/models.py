@@ -55,7 +55,7 @@ class District(models.Model):
     name = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"Quận/huyện {self.name}" if self.name.split()[0] != 'Quận' else self.name
+        return f" {self.name}" if self.name.split()[0] != 'Quận' else self.name
 
 
 class Ward(models.Model):

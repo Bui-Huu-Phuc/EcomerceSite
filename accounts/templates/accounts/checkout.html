@@ -18,67 +18,121 @@
 {% endblock messages %}
 
 {% block body_content %}
-<div class="flex justify-center items-center md:mt-32">
-    <div class="flex justify-between md:flex-row w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
-        <table class="m-4 w-full">
-            <tr class="">
-                <th class="text-center text-black p-4">Tên</th>
-                <th class="text-center text-black p-4">Giá</th>
-            </tr>
-            {% for order_item in order.items.all %}
-            <tr class="border-b-2">
-                <td class="text-center"><img {% if order_item.item.image %} src="{{order_item.item.image.url}}" {% endif %} class="w-16 h-16" alt=""> {{order_item.item.name}}({{order_item.size}})x{{order_item.quantity}}</td>
-                <td class="text-center">{{order_item.get_item_total_formated}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <div class="flex justify-between m-8">
-            <form id="addressForm" class="border w-full p-4" method="POST" data-districts-url="{% url 'accounts:ajax-load-districts' %}" data-wards-url = "{% url 'accounts:ajax-load-wards' %}" novalidate>
-                {% csrf_token %}
-            <h1 class="text-semibold text-3xl text-center p-2"><span class="">Chi tiết đơn hàng</span></h1>
-                <h1><span class="text-semibold text-2xl">Tổng: {{order.get_order_total}}</span>
-               
-            </h1>
 
-                {% if addresses %}
-                  <p class = "m-2">Chọn địa chỉ giao hàng</p>
-                  <div id = "address_list">
-                    {% for address in addresses %}
-                      <div class="border flex justify-start m-2 p-2 rounded">
-                        <input id="user_address_{{address.id}}" name="address" value="{{address.id}}" type="radio" class="m-2">
+<div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+  <div class="flex justify-start item-start space-y-2 flex-col">
+    <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">Order #13432</h1>
+    <p class="text-base dark:text-gray-300 font-medium leading-6 text-gray-600 ml-3" id="current_date"></p>
+  </div>
+  <div class="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
+    <div class="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
+      <div class="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+        <p class="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
+           {% for order_item in order.items.all %}
+        <div class="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
+          <div class="pb-4 md:pb-8 w-full md:w-40">
+              {% if order_item.item.image %}
+            <img class="w-full hidden md:block" src="{{order_item.item.image.url}}" alt="product" />
+            <img class="w-full md:hidden" src="{{order_item.item.image.url}}" alt="product" />
+              {% endif %}
+          </div>
+          <div class="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
+            <div class="w-full flex flex-col justify-start items-start space-y-8">
+              <h3 class="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">{{order_item.item.name}}</h3>
+              <div class="flex justify-start items-start flex-col space-y-2">
+                <p class="text-xl dark:text-white leading-none text-gray-800"><span class="dark:text-gray-400 text-gray-300">Màu: </span> {{order_item.size}}</p>
+              </div>
+            </div>
+            <div class="flex justify-between space-x-8 items-start w-full">
+              <p class="text-base dark:text-white xl:text-lg leading-6 text-gray-800">Số lượng: {{order_item.quantity}}</p>
+              <p class="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">Thành tiền: {{order_item.get_item_total_formated}}</p>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+        </div>
+
+         <div class="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
+        <div class="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
+          <h3 class="text-xl dark:text-white font-semibold leading-5 text-gray-800">Tổng đơn</h3>
+          <div class="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
+            <div class="flex justify-between w-full">
+              <p class="text-base dark:text-white leading-4 text-gray-800">Tạm tính</p>
+              <p class="text-base dark:text-gray-300 leading-4 text-gray-600">{{order.get_order_total}}</p>
+            </div>
+            <div class="flex justify-between items-center w-full">
+              <p class="text-base dark:text-white leading-4 text-gray-800">Shipping</p>
+              <p class="text-base dark:text-gray-300 leading-4 text-gray-600">Free</p>
+            </div>
+          </div>
+          <div class="flex justify-between items-center w-full">
+            <p class="text-base dark:text-white font-semibold leading-4 text-gray-800">Tổng đơn</p>
+            <p class="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">{{order.get_order_total}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="address_list" class="bg-gray-50 dark:bg-gray-200 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+        <form id="addressForm" class="" method="POST" data-districts-url="{% url 'accounts:ajax-load-districts' %}" data-wards-url = "{% url 'accounts:ajax-load-wards' %}" novalidate>
+                          {% csrf_token %}
+           {% if addresses %}
+      <h3 class="text-xl dark:text-black font-semibold leading-5 text-gray-800">Customer</h3>
+      <div class="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
+        <div class="flex flex-col justify-start items-start flex-shrink-0">
+             {% for address in addresses %}
+          <div class="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-black">
+            <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
+            <div class="flex justify-start items-start flex-col space-y-2">
+
+              <p class="text-base text-3xs dark:text-black font-semibold leading-4 text-left text-gray-800">{{user.first_name}} {{user.last_name}}</p>
+              <p class="text-sm dark:text-black leading-5 text-gray-600">{{address.phone}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center text-gray-800 dark:text-black md:justify-start items-center space-x-4 py-4 border-b border-black w-full">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 7L12 13L21 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="cursor-pointer text-sm leading-5 ">{{ user.email }}</p>
+          </div>
+        </div>
+        <div class="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 mb-10 mt-10">
+          <div class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row items-center md:items-start">
+            <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
+              <p class="text-2xl dark:text-black font-semibold leading-4 text-center md:text-left text-gray-800">Địa chỉ giao hàng</p>
+                <div class=" flex justify-start  p-2 ">
+                        <input id="user_address_{{address.id}}" name="address" value="{{address.id}}" type="radio" class="mt-4">
                         <label for="user_address_{{address.id}}" class="w-full">
-                          <p>{{address.full_name}} </p>
-                          <p>Phone: {{address.phone}}</p>
-                          <p>{{address.home}}{% if address.ward is not None %}
-                                                    {{address.ward}}, {% endif %} 
-                                                    {{address.district}}, 
+                          <p class="text-xl ml-2 w-48 lg:w-full dark:text-black xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">{{address.home}}{% if address.ward is not None %}
+                                                    {{address.ward}}, {% endif %}
+                                                    {{address.district}},
                                                     {{address.city}}</p>
                         </label>
                       </div>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-                  <div class = "flex justify-start mt-4 w-full">
-                    <h3 class="mr-4">Phương thức thanh toán:</h3>
-                      <div>
+            </div>
+            <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
+              <p class="text-2xl dark:text-black font-semibold leading-4 text-center md:text-left text-gray-800">Hình thức thanh toán</p>
+                <div>
                         {% for value, name in form.fields.payment_option.choices %}
                         <input id="{{ name }}" {% if forloop.counter == 2 %} checked {% endif %} name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                        <label class="text-xl w-48 lg:w-full dark:text-black xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600" for="{{ name }}">{{ name }}</label>
                         {% endfor %}
-                        
                       </div>
-                  </div>
-                <div class = "py-4">
-                  <small for="{{ name }}">{{form.fields.payment_option.help_text}}</small>
-<br/>
-                  <a href="{% url 'accounts:new-address' %}" class="text-wrap hover:underline">Thêm địa chỉ mới</a>
-                </div>
-                  <input type="submit" value="Đặt hàng" class="border hover:bg-black hover:text-gray-200 bg-white text-black font-semibold rounded-full p-4">
-              </form>
+            </div>
+          </div>
+          <div class="flex w-full justify-center items-center md:justify-start md:items-start mt-24">
+            <button class=" md:mt-0 dark:border-black dark:hover:bg-gray-900 dark:bg-transparent dark:text-black py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800">Đặt hàng</button>
+          </div>
         </div>
-    
+         {% endfor %}
+      </div>
+        {% endif %}
+             </form>
     </div>
- </div>
+  </div>
+
 {% endblock body_content %}
 {% block script %}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -139,5 +193,13 @@
         }
     });
 });
+</script>
+<script>
+date = new Date();
+year = date.getFullYear();
+month = date.getMonth() + 1;
+day = date.getDate();
+hour = date.toLocaleTimeString();
+document.getElementById("current_date").innerHTML = "Đơn hàng ngày: " + day + "/" + month + "/" + year + " lúc " + hour;
 </script>
 {% endblock script %}

@@ -4,10 +4,11 @@
 <html lang="en">
 <head>
      <meta charset="UTF-8">
+      <link rel="icon" href="http://example.com/favicon.png">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
      <link rel="stylesheet" href="{% static 'css/style.css' %}">
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
     </script>
@@ -16,7 +17,7 @@
     </script>
 
 
-     <title>Home</title>
+     <title>Shop</title>
      
 </head>
 <body class=" " >
@@ -412,9 +413,14 @@
   <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
       <div>
-      <img src="#" class="mr-5 h-6 sm:h-9" alt="logo" />
+        <div  class="mr-5 h-6 sm:h-9"  >
+          <svg id="logo" enable-background="new 0 0 300 300" height="44" viewBox="0 0 300 300" width="43" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g>
+                <path fill="#4c51bf" d="m234.735 35.532c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16zm0 24c-4.412 0-8-3.588-8-8s3.588-8 8-8 8 3.588 8 8-3.588 8-8 8zm-62.529-14c0-2.502 2.028-4.53 4.53-4.53s4.53 2.028 4.53 4.53c0 2.501-2.028 4.529-4.53 4.529s-4.53-2.027-4.53-4.529zm89.059 60c0 2.501-2.028 4.529-4.53 4.529s-4.53-2.028-4.53-4.529c0-2.502 2.028-4.53 4.53-4.53s4.53 2.029 4.53 4.53zm-40.522-5.459-88-51.064c-1.242-.723-2.773-.723-4.016 0l-88 51.064c-1.232.715-1.992 2.033-1.992 3.459v104c0 1.404.736 2.705 1.938 3.428l88 52.936c.635.381 1.35.572 2.062.572s1.428-.191 2.062-.572l88-52.936c1.201-.723 1.938-2.023 1.938-3.428v-104c0-1.426-.76-2.744-1.992-3.459zm-90.008-42.98 80.085 46.47-52.95 31.289-23.135-13.607v-21.713c0-2.209-1.791-4-4-4s-4 1.791-4 4v21.713l-26.027 15.309c-1.223.719-1.973 2.029-1.973 3.447v29.795l-52 30.727v-94.688zm0 198.707-80.189-48.237 51.467-30.412 24.723 14.539v19.842c0 2.209 1.791 4 4 4s4-1.791 4-4v-19.842l26.027-15.307c1.223-.719 1.973-2.029 1.973-3.447v-31.667l52-30.728v94.729z" />
+              </g>
+            </svg></div>
         <p class="max-w-xs mt-4 text-sm text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, accusantium.
+          Website bán Laptop hàng đầu Việt Nam
         </p>
         <div class="flex mt-8 space-x-6 text-gray-600">
           <a class="hover:opacity-75" href target="_blank" rel="noreferrer">
@@ -455,7 +461,7 @@
             Company
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
-            <a class="hover:opacity-75" href> About </a>
+            <a class="hover:opacity-75" href="{% url 'items:aboutus' %}"> About us</a>
             <a class="hover:opacity-75" href> Meet the Team </a>
             <a class="hover:opacity-75" href> History </a>
             <a class="hover:opacity-75" href> Careers </a>
@@ -463,14 +469,14 @@
         </div>
         <div>
           <p class="font-medium">
-            Services
+            Showroom
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
-            <a class="hover:opacity-75" href> 1on1 Coaching </a>
-            <a class="hover:opacity-75" href> Company Review </a>
-            <a class="hover:opacity-75" href> Accounts Review </a>
-            <a class="hover:opacity-75" href> HR Consulting </a>
-            <a class="hover:opacity-75" href> SEO Optimisation </a>
+            <a class="hover:opacity-75" href>Showroom 1</a>
+            <a class="hover:opacity-75" href> Showroom 2</a>
+            <a class="hover:opacity-75" href> Showroom 3 </a>
+            <a class="hover:opacity-75" href>Showroom 4 </a>
+
           </nav>
         </div>
         <div>
@@ -480,7 +486,6 @@
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
             <a class="hover:opacity-75" href> Contact </a>
             <a class="hover:opacity-75" href> FAQs </a>
-            <a class="hover:opacity-75" href> Live Chat </a>
           </nav>
         </div>
         <div>
@@ -497,7 +502,7 @@
       </div>
     </div>
     <p class="mt-8 text-xs text-gray-800">
-      © 2022 Comany Name
+      © 2022 Dark Morty
     </p>
   </div>
 </footer>

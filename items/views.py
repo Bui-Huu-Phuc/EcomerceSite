@@ -254,3 +254,9 @@ def increase_quantity(request, slug, size):
         return redirect("items:cart")
     else:
         return redirect("items:cart")
+
+
+def aboutus(request):
+
+    return render(request, 'AboutUs.html')
+
