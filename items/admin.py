@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Category, OrderItem, Order, ItemImage
+from .models import Item, Category, OrderItem, Order, ItemImage, ProductReview
 
 
 # Register your models here.
@@ -23,9 +23,6 @@ class PostImageAdmin(admin.ModelAdmin):
     pass
 
 
-
-
-
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ["ItemName", "quantity", "OrderID"]
     search_fields = ['order']
@@ -45,3 +42,4 @@ class OrderItemAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Order)
+admin.site.register(ProductReview)

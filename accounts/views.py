@@ -10,16 +10,14 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 
 from django.utils import timezone
-
+from django.template.loader import render_to_string
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 from .forms import CreateUserForm, UserUpdateForm, UserPasswordChangeForm, AddressCreateForm, CheckOutForm
 from .models import Address, City, District, Ward
 
 from items.models import Order, OrderItem
-
-
 
 User = get_user_model()
 
@@ -172,20 +170,29 @@ class CheckoutView(LoginRequiredMixin, View):
                 order.save()
 
                 # Gửi mail thông báo tới user
-                subject = 'Dark Morty Shop đã tiếp nhận đơn hàng'
-                email_msg = f'Xin chào {self.request.user.first_name} {self.request.user.last_name}, Dark Morty Shop đã tiếp nhận đơn hàng của bạn. Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi.'
-                email_from = settings.EMAIL_HOST_USER
-                email_to = [self.request.user.email, ]
-                send_mail(subject, email_msg, email_from, email_to)
-
-                # Gửi mail cho tài khoản admin
-                admin_subject = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}"
-                admin_email_msg = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}. Mã đơn hàng {order.pk}. Hình thức thanh toán: {form.cleaned_data['payment_option']}"
-                admin = User.objects.get(username="admin")
-                admin_email = [admin.email, ]
-                send_mail(admin_subject, admin_email_msg, email_from, admin_email)
-                return redirect('/')
+                template = render_to_string('accounts/email_confirm.html',
+                                            {'name': self.request.user.first_name + ' ' + self.request.user.last_name})
+                email = EmailMessage(
+                    'Thông báo tiếp nhận đơn hàng',
+                    template,
+                    settings.EMAIL_HOST_USER,
+                    {self.request.user.email},
+                )
+                email.fail_silently = False
+                email.send()
+            return redirect('items:home')
+            # Gửi mail cho tài khoản admin
+            # admin_subject = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}"
+            # admin_email_msg = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}. Mã đơn hàng {order.pk}. Hình thức thanh toán: {form.cleaned_data['payment_option']}"
+            # admin = User.objects.get(username="admin")
+            # admin_email = [admin.email, ]
+            # send_mail(admin_subject, admin_email_msg, email_from, admin_email)
 
         else:
             messages.error(self.request, "Vui lòng chọn địa chỉ giao hàng")
             return redirect('accounts:checkout')
+
+
+def order_confirmation(request):
+    order = Order.objects.get(pk=5)
+    return render(request, 'accounts/email_confirm.html', {'oder': order})

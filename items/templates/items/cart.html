@@ -7,11 +7,11 @@
         {% for msg in messages %}
         <div role="alert" class="w-full flex justify-center font-semibold m-4">
         <span class="w-2/3 text-center
-        {% if msg.tags == 'error' %} 
+        {% if msg.tags == 'error' %}
             bg-white text-red-600 border-2 border-red-400
-        {% else %} 
+        {% else %}
             text-green-500 border-2 border-green-500
-        {% endif %} 
+        {% endif %}
         rounded-full p-4">{{msg}}</span>
         </div>
         {% endfor %}
@@ -62,7 +62,7 @@
         </table>
         <div class="flex justify-between m-8">
         
-            <a href="" class="hover:underline p-4">TIẾP TỤC MUA SẮM</a>
+            <a href="{% url 'items:home' %}" class="hover:underline p-4">TIẾP TỤC MUA SẮM</a>
             <a href="{% url 'accounts:checkout' %}" class="border-2 hover:bg-black hover:text-white text-black bg-transparent font-semibold p-4 rounded-xl">TIẾN HÀNH THÀNH TOÁN</a>
 
         </div>

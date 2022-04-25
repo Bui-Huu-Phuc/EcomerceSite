@@ -6,10 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 # from django.http import JsonResponse
 
-from .filter import ItemFilter
 
 from .forms import OrderItemForm
-from .models import Item, Order, OrderItem, Category, ItemImage
+from .models import Item, Order, OrderItem, Category, ItemImage, ProductReview
 
 
 class HomeView(ListView):
@@ -20,7 +19,6 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = ItemFilter(self.request.GET, queryset=self.get_queryset())
         categories = Category.objects.all()
         context.update({
             "categories": categories
@@ -68,11 +66,6 @@ def filter_by_category(request, pk):
         'items': items
     }
     return render(request, 'items/item_search.html', context)
-
-
-def filter_item(request):
-    f = ItemFilter(request.GET, queryset=Item.objects.all())
-    return render(request, 'items/item_details.html', {'filter': f})
 
 
 class OrderListView(LoginRequiredMixin, View):
@@ -156,9 +149,13 @@ def ItemDetailView(request, slug):
         if "size" in request.POST:
             return add_to_cart(request, slug)
         else:
-            msg = f"Vui lòng chọn kích thước sản phẩm!"
+            msg = f"Vui lòng chọn màu sản phẩm!"
             messages.error(request, msg)
             return redirect("items:details", slug=slug)
+
+
+
+
 
 
 @login_required
@@ -257,6 +254,4 @@ def increase_quantity(request, slug, size):
 
 
 def aboutus(request):
-
     return render(request, 'AboutUs.html')
-

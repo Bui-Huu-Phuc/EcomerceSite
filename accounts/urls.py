@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import UserCreateView, UserDetailView, UserUpdateView, PwdChangeView, CreateAddressView, UpdateAddressView, \
-    CheckoutView, remove_address, load_district, load_ward
+    CheckoutView, remove_address, load_district, load_ward, order_confirmation
 from django.contrib.auth.views import LoginView, LogoutView
 
 app_name = "accounts"
@@ -20,4 +20,5 @@ urlpatterns = [
     path('ajax/load-districts/', load_district, name="ajax-load-districts"),
     path('ajax/load-wards/', load_ward, name="ajax-load-wards"),
     path('thanh-toan/', CheckoutView.as_view(), name="checkout"),
+    path('order_confirmation/', order_confirmation, name='order_confirmation')
 ]

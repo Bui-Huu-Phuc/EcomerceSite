@@ -1,0 +1,54 @@
+<div class="bg-black text-white">
+        <h2>Reviews</h2>
+        {% for review in items.reviews.all %}
+        <div>
+            <p>Ngày đăng: {{ review.date_added }},
+            Sao : {{review.stars }}
+
+            {{ review.reviews }}
+        </p>
+        </div>
+        {% empty %}
+            <strong> No reviews yet</strong>
+        <div>
+            {% if request.user.is_authenticated %}
+            <form method="POST" action=".">
+                {% csrf_token %}
+                <div class="fields">
+                    <label>Stars: </label>
+                    <div>
+                        <div>
+                            <select name="stars">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="fields">
+                    <label>
+                        Reviews:
+                    </label>
+
+                    <div class="">
+                        <textarea class="textarea" name="content"></textarea>
+                    </div>
+                </div>
+                <div class="fields">
+                    <button class="btn btn-primary">
+                        <a href=""></a>
+                        Danh gia
+                    </button>
+                </div>
+
+            </form>
+            {% else %}
+            <p> Sign In </p>
+
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
