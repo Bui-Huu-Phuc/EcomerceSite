@@ -14,6 +14,7 @@
         {% endif %}
         rounded p-4">{{msg}}</span>
         </div>
+
         {% endfor %}
     {% endif %}
 {% endblock messages %}
@@ -22,14 +23,14 @@
 
 
 <section class="text-gray-600 body-font overflow-hidden">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+  <div class="container px-5 py-12 mx-auto ">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap transform duration-500 ">
        {% if item.image %}
 
-            <img src="{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+            <img src="{{item.image.url}}" class="w-full md:w-1/2 md:h-1/2 p-8 transform hover:scale-110 duration-200" alt="">
 
         {% else %}
-            <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8" alt="">
+            <img src="{% static 'media/images/img-not-found.gif' %}" class="w-full md:w-1/2 md:h-1/2 p-8 " alt="">
         {% endif %}
 
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

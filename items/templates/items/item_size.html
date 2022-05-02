@@ -1,13 +1,11 @@
 {% block body_content %}
 
-   <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 ">
+   <div class="flex items-center pb-2 border-t-2 border-gray-100 mb-5 ">
           <div class="flex">
-            <span class="mr-3 text-2xl font-bold">Color</span>
               <form method="POST" id="order_item_form" class = ' flex flex-row items-center font-semibold m-2'>
         {% csrf_token %}
         {% for value, name in form.fields.item_color.choices %}
-          <input type="radio" name='size' id='{{name}}' value='{{value}}' class=" ">
-          <label id='{{value}}'  class="   w-full text-center font-semibold  p-2 border rounded-xl">{{name}}</label>
+          <input type="radio" name='size' id='{{name}}' value='{{value}}' checked="checked" class="appearance-none">
         {% endfor %}
         {{form.quantity}}
     </form>

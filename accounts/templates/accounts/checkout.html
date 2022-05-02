@@ -39,11 +39,9 @@
           <div class="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
             <div class="w-full flex flex-col justify-start items-start space-y-8">
               <h3 class="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">{{order_item.item.name}}</h3>
-              <div class="flex justify-start items-start flex-col space-y-2">
-                <p class="text-xl dark:text-white leading-none text-gray-800"><span class="dark:text-gray-400 text-gray-300">Màu: </span> {{order_item.size}}</p>
-              </div>
+
             </div>
-            <div class="flex justify-between space-x-8 items-start w-full">
+            <div class="flex justify-between space-x-10 items-start w-full ml-10 ">
               <p class="text-base dark:text-white xl:text-lg leading-6 text-gray-800">Số lượng: {{order_item.quantity}}</p>
               <p class="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">Thành tiền: {{order_item.get_item_total_formated}}</p>
             </div>
@@ -123,7 +121,7 @@
             </div>
           </div>
           <div class="flex w-full justify-center items-center md:justify-start md:items-start mt-24">
-            <button class=" md:mt-0 dark:border-black dark:hover:bg-gray-900 dark:bg-transparent dark:text-black py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800">Đặt hàng</button>
+            <button class=" md:mt-0 dark:border-black dark:hover:bg-gray-200 dark:bg-transparent dark:text-black py-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800">Đặt hàng</button>
           </div>
         </div>
          {% endfor %}
@@ -132,7 +130,7 @@
              </form>
     </div>
   </div>
-
+</div>
 {% endblock body_content %}
 {% block script %}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

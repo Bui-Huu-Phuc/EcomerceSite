@@ -81,11 +81,19 @@
         <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
             <nav id="store" class="w-full z-30 top-0 px-6 py-1  text-xl">
                 <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-                    <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
+                    <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-3xl " href="#">
 				Store
 			        </a>
+                    <div class="flex justify-center pr-60">
 
-
+                         {% for cate in categories %}
+                        <div class="group block max-w-xs mx-auto rounded-lg p-3 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500">
+                       <a href="{% url 'items:filter-by-cate' cate.pk %}" class="p-2 group-hover:text-white text-xl font-semibold">
+                          {{cate.name}}
+                       </a>
+                            </div>
+                            {% endfor %}
+                        </div>
                     <div class="flex items-center" id="store-nav-content text-2xl">
                         <button class="pl-3 inline-block no-underline hover:text-black">
                             <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">

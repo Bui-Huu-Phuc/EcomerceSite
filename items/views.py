@@ -175,7 +175,7 @@ def add_to_cart(request, slug):
             order_item.save()
             # order.save()
             order.set_order_total()
-            msg = f"Đã thêm {item.name}({size}) vào giỏ hàng!"
+            msg = f"Đã thêm {item.name} vào giỏ hàng!"
             messages.info(request, msg)
             return redirect("items:details", slug=slug)
         else:
@@ -183,7 +183,7 @@ def add_to_cart(request, slug):
             # order.save()
             order.set_order_total()
 
-            msg = f"Đã thêm {item.name}({size}) vào giỏ hàng!"
+            msg = f"Đã thêm {item.name} vào giỏ hàng!"
             messages.info(request, msg)
             return redirect("items:details", slug=slug)
     else:
@@ -191,7 +191,7 @@ def add_to_cart(request, slug):
         order = Order.objects.create(user=request.user)
         order.items.add(order_item)
         order.set_order_total()
-        msg = f"Added {item.name}({size})to  your cart!"
+        msg = f"Added {item.name} to  your cart!"
         messages.info(request, msg)
         return redirect("items:details", slug=slug)
 
@@ -210,7 +210,7 @@ def remove_from_cart(request, slug, size):
 
             if order_item_qs.exists():
                 order_item = order_item_qs[0]
-                msg = f'Đã xóa {order_item.item.name}({order_item.size}) khỏi giỏ hàng.'
+                msg = f'Đã xóa {order_item.item.name} khỏi giỏ hàng.'
                 order.items.remove(order_item)
                 order_item.delete()
                 messages.warning(request, msg)

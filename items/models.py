@@ -74,6 +74,9 @@ class OrderItem(models.Model):
     size = models.CharField(max_length=300, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
 
+    def get_final_price2(self):
+        return f"{self.item.discount_price:,}d" if self.item.discount_price else f"{self.item.price:,}đ"
+
     def get_final_price(self):
         return self.item.discount_price if self.item.discount_price else self.item.price
 
@@ -118,10 +121,9 @@ class Order(models.Model):
 
 
 class ProductReview(models.Model):
-    product = models.ForeignKey(Item,related_name="reviews", on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Item, related_name="reviews", on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 
     reviews = models.TextField(blank=True, null=True)
     stars = models.IntegerField(default=1)
     date_added = models.DateTimeField(auto_now_add=True)
-

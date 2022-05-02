@@ -5,8 +5,6 @@ from items.models import Item
 
 colors = (
     ('Đen', 'Đen'),
-    ('Xám', 'Xám'),
-    ('Xanh', 'Xanh'),
 )
 PAYMENT_CHOICES = (
     ('IB', 'Internet Banking'),

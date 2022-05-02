@@ -20,53 +20,77 @@
 
 
 {% block body_content %}
-<div class="flex justify-center h-3/5 items-center md:mt-32">
-    <div class="flex flex-col justify-center md:flex-col w-full md:w-4/5 xl:w-3/5 2xl:w-3/5 border bg-white rounded-xl">
-        <table class="m-4">
-            <tr class="">
-                <th class="text-center text-black p-8">Tên</th>
-                <th class="text-center text-black p-8">Giá</th>
-                <th class="text-center text-black p-8"></th>
-            </tr>
-            {% for order_item in order.items.all %}
-            <tr class ="border-b-2">
-                <td class="text-center pb-4">
-                    {% if order_item.item.image %}
-                    <img  src="{{order_item.item.image.url}}" class="w-16 h-16" alt="">
-                    {% endif %} {{ forloop.counter }}.
-                    <a class="hover:underline" href="{% url 'items:details' order_item.item.slug %}">{{order_item.item.name}}</a>
-                    <span>
-                        ({{order_item.size}})-Số lượng:<a href="{% url 'items:remove-single-from-cart' order_item.item.slug order_item.size %}" class="p-2 m-2 border hover:bg-gray-900 hover:text-white rounded-xl">-</a>{{order_item.quantity}}<a href="{% url 'items:increase-quantity' order_item.item.slug order_item.size %}" class="p-2 m-2 border hover:bg-gray-900 hover:text-white rounded-xl">+</a>
-                    </span>
-                </td>
 
-                <td class="text-center pb-4">
-                    {{order_item.get_item_total_formated}}
-                </td>
-                <td class="text-center pb-4"><a href="{% url 'items:remove-from-cart' order_item.item.slug order_item.size %}" class= "hover:text-blue-500 hover:underline">Xóa</a></td>
-            </tr>
-            {% endfor %}
-            <tr  class="p-4">
-                <td colspan="2"></td>
-                <td class="text-center text-2xl">Tổng: {{order.get_order_total}}</td>
-            </tr>
-            <tr></tr>
-            <tr  class="p-4">
-                <td colspan="2">
-                </td>
-                <td colspan="2">
-                </td>
-                <td colspan="3">
-                </td>
-            </tr>
-        </table>
-        <div class="flex justify-between m-8">
-        
-            <a href="{% url 'items:home' %}" class="hover:underline p-4">TIẾP TỤC MUA SẮM</a>
-            <a href="{% url 'accounts:checkout' %}" class="border-2 hover:bg-black hover:text-white text-black bg-transparent font-semibold p-4 rounded-xl">TIẾN HÀNH THÀNH TOÁN</a>
 
+
+  <div class="container mx-auto mt-10 h-screen">
+    <div class="flex shadow-md my-10">
+      <div class="w-3/4 bg-white px-10 py-10">
+        <div class="flex justify-between border-b pb-8">
+          <h1 class="font-semibold text-2xl">Giỏ hàng</h1>
         </div>
-    
+        <div class="flex mt-10 mb-5">
+          <h3 class="font-semibold text-gray-600 text-2xs uppercase w-2/5">Chi tiết sản phẩm</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Số lượng</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Giá</h3>
+          <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Tổng</h3>
+        </div>
+          {% for order_item in order.items.all %}
+        <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 border-r">
+          <div class="flex w-2/5"> <!-- product -->
+              {% if order_item.item.image %}
+                    <img  src="{{order_item.item.image.url}}" class="w-16 h-16" alt="">
+                    {% endif %}
+            <div class="w-20">
+            </div>
+            <div class="flex flex-col justify-between ml-4 flex-grow">
+              <span class="font-bold text-xl">{{order_item.item.name}}</span>
+              <span class="text-red-500 text-xs">{{order_item.item.categories}}</span>
+              <a href="{% url 'items:remove-from-cart' order_item.item.slug order_item.size %}" class="font-semibold hover:text-red-500 text-gray-500 text-2xs ">Xóa</a>
+            </div>
+          </div>
+          <div class="flex justify-center w-1/5">
+              <a href="{% url 'items:remove-single-from-cart' order_item.item.slug order_item.size %}" class="pt-1">
+            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+            </svg>
+              </a>
+
+            <input class="mx-2 border text-center w-8" type="text" value="{{order_item.quantity}}">
+                <a href="{% url 'items:increase-quantity' order_item.item.slug order_item.size %}" class="pt-1">
+            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+              <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
+            </svg>
+                </a>
+          </div>
+          <span class="text-center w-1/5 font-semibold text-xl">{{order_item.get_final_price2}}</span>
+          <span class="text-center w-1/5 font-semibold text-xl">{{order_item.get_item_total_formated}}</span>
+        </div>
+        {% endfor %}
+
+        <a href="{% url 'items:home' %}" class="flex font-semibold text-indigo-600 text-sm mt-10">
+
+          <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+          Tiếp tục mua sắm
+        </a>
+      </div>
+
+      <div id="summary" class="w-1/4 px-8 py-10 grid grid-cols-1 gap-4 flex justify-center">
+
+
+
+        <div class=" mt-20 place-self-end ">
+          <div class="flex font-semibold justify-between py-6 text-sm uppercase col-span-4 text-xl">
+            <span class="mr-4 mb-5">Tổng đơn hàng: </span>
+            <span>{{order.get_order_total}}</span>
+          </div>
+          <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"><a href="{% url 'accounts:checkout' %}"> Checkout</a></button>
+        </div>
+      </div>
+
     </div>
- </div>
+  </div>
+
+
+
+
 {% endblock body_content %}
