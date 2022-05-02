@@ -3,28 +3,40 @@
 
 {% load socialaccount %}
 {% block body_content %}
-<div class="flex justify-center items-center md:mt-32">
-    
-    <div class="flex flex-col justify-center md:flex-row w-full md:w-4/5 xl:w-2/5 2xl:w-2/5 border bg-white rounded-xl">
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
 
-        <form action="" method="post" class="p-16 h-screen md:w-4/5 xl:w-auto md:h-auto xl:h-auto 2xl:h-auto">
-            {% csrf_token %}
-            <h1 class="text-5xl text-center font-semibold mb-8" >Đăng Nhập</h1>
+<div class="container h-screen max-w-full mx-auto py-24 px-6">
+  <div class="font-sans">
+  <div class="max-w-sm mx-auto px-6 bg-gray-100 p-4 rounded">
+    <div class="relative flex flex-wrap">
+      <div class="w-full relative">
+        <div class="mt-6">
+           <div class="mb-5 pb-1 text-center font-bold text-3xl text-black">
+           <span class="  border-b-2">Evil morty</span>
+          </div>
+          <div class="text-center font-semibold text-black">
+            Laptop hàng đầu Việt Nam
+          </div>
 
-            {{form | crispy}}
-            <input type="submit" class="border-2 w-full bg-transparent hover:text-white hover:bg-black text-black p-4 font-semibold rounded-full" value="Đăng Nhập">
-            <div class="m-4" >
-                <small class="">Không có tài khoản? <a href="{% url 'accounts:signup' %}" class="text-blue-500 hover:underline">Đăng ký</a></small>
+          <form class="mt-8 " action="" method="post">
+               {% csrf_token %}
+            <div class="mx-auto max-w-lg">
+              <div class="py-2">
+                   {{form | crispy}}
+
+              </div>
+              <div class="flex justify-between">
+                  <label class="block text-gray-500 font-bold mb-4">
+                  <a href="{% url 'password_reset' %}" class="cursor-pointer tracking-tighter text-black border-b-2 border-gray-200 hover:border-gray-400"><span>Quên mật khẩu?</span></a></label></div>
+                  <span class="py-2 text-sm text-gray-600 leading-snug"> Chưa có tài khoản? <a href="{% url 'accounts:signup' %}" class="border-b-2 border-blue-400">Đăng ký</a> </span>
+                <input type="submit" class="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black" value="Đăng nhập">
             </div>
-            <a href="{% provider_login_url 'google' %}">
-                <input type="button" class="border-2 w-full bg-transparent hover:text-white hover:bg-yellow-600 text-black p-4 font-semibold rounded-full" value="Đăng nhập bằng Google">
-            </a>
-            <div class="m-4" >
-                <small class=""><a href="{% url 'password_reset' %}" class="text-blue-500 hover:underline">Quên mật khẩu?</a></small>
-            </div>
-        </form>
-        
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
 
- </div>
 {% endblock body_content %}`

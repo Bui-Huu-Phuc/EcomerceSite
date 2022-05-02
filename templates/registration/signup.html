@@ -1,20 +1,33 @@
 {% extends "base.html" %}
 {% load tailwind_filters %}
 {% block body_content %}
-<div class="flex justify-center items-center md:mt-8 h-screen md:h-auto">
-    
-    <div class="flex flex-col justify-center md:flex-row w-full md:w-4/5 xl:w-2/5 2xl:w-2/5 border bg-white rounded-xl">
-        <form action="" method="post" class="p-16">
-            {% csrf_token %}
-            <h1 class="text-5xl text-center font-semibold mb-8" >Đăng ký</h1>
-            {{form | crispy}}
-            <input type="submit" class="border-2 w-full bg-transparent hover:text-white hover:bg-black text-black p-4 font-semibold rounded-full" value="Đăng ký">
-            <div class="m-4" >
-                <small class="">Đã có tài khoản? <a href="{% url 'accounts:login' %}" class="text-blue-500 hover:underline">Đăng nhập</a></small>
+<div class="container max-w-full mx-auto py-24 px-6">
+  <div class="font-sans">
+  <div class="max-w-sm mx-auto px-6 bg-gray-100 p-4 rounded">
+    <div class="relative flex flex-wrap">
+      <div class="w-full relative">
+        <div class="mt-6">
+           <div class="mb-5 pb-1 text-center font-bold text-3xl text-black">
+           <span class="  border-b-2">Evil morty</span>
+          </div>
+          <div class="text-center font-semibold text-black">
+            Laptop hàng đầu Việt Nam
+          </div>
+          <form class="mt-8 " action="" method="post">
+               {% csrf_token %}
+            <div class="mx-auto max-w-lg">
+              <div class="py-2">
+                   {{form | crispy}}
+              </div>
+              <div class="flex justify-between">
+                <input type="submit" class="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black" value="Đăng ký">
             </div>
-        </form>
-        
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
 
- </div>
 {% endblock body_content %}
