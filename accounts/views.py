@@ -180,14 +180,8 @@ class CheckoutView(LoginRequiredMixin, View):
                 )
                 email.fail_silently = False
                 email.send()
-            return redirect('items:home')
-            # Gửi mail cho tài khoản admin
-            # admin_subject = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}"
-            # admin_email_msg = f"Tiếp nhận đơn hàng mới từ {self.request.user.username}. Mã đơn hàng {order.pk}. Hình thức thanh toán: {form.cleaned_data['payment_option']}"
-            # admin = User.objects.get(username="admin")
-            # admin_email = [admin.email, ]
-            # send_mail(admin_subject, admin_email_msg, email_from, admin_email)
 
+            return redirect('items:thanks')
         else:
             messages.error(self.request, "Vui lòng chọn địa chỉ giao hàng")
             return redirect('accounts:checkout')

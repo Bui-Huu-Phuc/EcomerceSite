@@ -120,10 +120,4 @@ class Order(models.Model):
         return f"Order No.{self.pk}--Username:{self.user.username}"
 
 
-class ProductReview(models.Model):
-    product = models.ForeignKey(Item, related_name="reviews", on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, related_name="reviews", on_delete=models.CASCADE, null=True)
 
-    reviews = models.TextField(blank=True, null=True)
-    stars = models.IntegerField(default=1)
-    date_added = models.DateTimeField(auto_now_add=True)

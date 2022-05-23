@@ -69,7 +69,7 @@
     <!--Div infinite scroll-->
 
 
-   <div class="carousel static container p-1 mx-auto mt-5 border-b-2 border-black z-1" style="max-width:1600px;">
+   <div class="carousel static container p-1 mx-auto mt-5 border-b-2 border-blue-200 z-1" style="max-width:1600px;">
         <div class="carousel-inner  overflow-hidden w-full">
             {% include 'slider.html' %}
         </div>
@@ -87,7 +87,7 @@
                     <div class="flex justify-center pr-60">
 
                          {% for cate in categories %}
-                        <div class="group block max-w-xs mx-auto rounded-lg p-3 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500">
+                        <div class="group mr-4 block max-w-xs mx-auto rounded-lg p-3 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500">
                        <a href="{% url 'items:filter-by-cate' cate.pk %}" class="p-2 group-hover:text-white text-xl font-semibold">
                           {{cate.name}}
                        </a>
@@ -104,13 +104,15 @@
                <div  id="searchBox" >
                <form action="{% url 'items:search' %}" method="POST">
                 {% csrf_token %}
+
+
                  <div class="flex items-center max-w-md mx-auto bg-gray-200 rounded-lg ">
                      <div class="w-full">
                      <input id="searchBar" name="searchBar" type="search" class="w-full px-4 py-1 text-gray-800  focus:outline-none bg-gray-200"
                 placeholder="search">
                     </div>
                  <div>
-            <button  id="search" type="submit" class="flex items-center bg-blue-500 justify-center w-12 h-12 text-white rounded-r-lg"  >
+                <button  id="search" type="submit" class="flex items-center bg-blue-500 justify-center w-12 h-12 text-white rounded-r-lg"  >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

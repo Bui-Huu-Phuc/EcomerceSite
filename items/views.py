@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 from .forms import OrderItemForm
-from .models import Item, Order, OrderItem, Category, ItemImage, ProductReview
+from .models import Item, Order, OrderItem, Category, ItemImage
 
 
 class HomeView(ListView):
@@ -53,7 +53,8 @@ def item_search_view(request):
         search = request.POST['searchBar']
         items = Item.objects.filter(name__icontains=search)
         context = {
-            'items': items
+            'items': items,
+
         }
         return render(request, 'items/item_search.html', context)
     elif request.method == "GET":
@@ -154,10 +155,6 @@ def ItemDetailView(request, slug):
             return redirect("items:details", slug=slug)
 
 
-
-
-
-
 @login_required
 def add_to_cart(request, slug):
     size = request.POST['size']
@@ -255,3 +252,7 @@ def increase_quantity(request, slug, size):
 
 def aboutus(request):
     return render(request, 'AboutUs.html')
+
+
+def thanks(request):
+    return render(request, 'thanks.html')
